@@ -1,0 +1,28 @@
+# Enterprise Morphogenesis
+
+> White paper by Yannick Huchard (Version 1.0, August 2026). Enterprise Architecture as the morphogenetic system of the enterprise: how strategy becomes a target form, and how that form is generated, scaled, and kept viable under continuous change.
+
+Canonical HTML: https://yannickhuchard.github.io/enterprise-morphogenesis/
+Author: https://yannickhuchard.com
+Source repository: https://github.com/yannickhuchard/enterprise-morphogenesis
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). There is no DOI.
+
+Use the Markdown or llms-full.txt files for retrieval, RAG, custom GPTs, Claude projects, Gemini Gems, Grok, Perplexity, and Copilot.
+
+## Full text
+
+- [Markdown manuscript](https://yannickhuchard.github.io/enterprise-morphogenesis/index.md): complete paper; preferred structured source
+- [llms-full.txt](https://yannickhuchard.github.io/enterprise-morphogenesis/llms-full.txt): complete paper as UTF-8 text
+- [HTML](https://yannickhuchard.github.io/enterprise-morphogenesis/): formatted reading copy
+- [Word](https://yannickhuchard.github.io/enterprise-morphogenesis/Enterprise_Morphogenesis_v1_0.docx): publication Word file
+- [Machine card](https://yannickhuchard.github.io/enterprise-morphogenesis/paper.json): title, abstract, URLs
+
+## Citation
+
+- [CITATION.cff](https://yannickhuchard.github.io/enterprise-morphogenesis/CITATION.cff)
+- [BibTeX](https://yannickhuchard.github.io/enterprise-morphogenesis/citation.bib)
+- [RIS](https://yannickhuchard.github.io/enterprise-morphogenesis/citation.ris)
+
+## Agent skill
+
+- [SKILL.md](https://github.com/yannickhuchard/enterprise-morphogenesis/blob/main/skills/enterprise-morphogenesis/SKILL.md): operate as the morphogenetic system described in the paper

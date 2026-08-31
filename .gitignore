@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Office lock files
+~$*
+*.tmp
+
+# Local working copies (not the publication set)
+.branded_templates/
+.codex-docx-work/
+.cursor/
+presentations/
+scripts/align_word_subtitle.py
+scripts/build_presentations.py
+*_updated.pptx
+*_Publication_1.docx
+Enterprise_Morphogenesis_White_Paper_Yannick_Huchard_v1_0.docx
+
+# Secrets
+.env
+.env.*
+*.pem
+credentials.json

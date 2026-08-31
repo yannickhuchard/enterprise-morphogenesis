@@ -1,0 +1,62 @@
+# Citation metadata for this white paper.
+# GitHub uses this file for the "Cite this repository" button.
+# There is no DOI assigned yet; do not invent one.
+# Paper site: GitHub Pages. Author site: yannickhuchard.com.
+cff-version: 1.2.0
+message: "If you refer to this white paper, please cite it using these metadata."
+title: "Enterprise Morphogenesis: how strategy becomes a target form, and how that form is generated, scaled, and kept viable under continuous change."
+authors:
+  - family-names: Huchard
+    given-names: Yannick
+    website: "https://yannickhuchard.com"
+version: "1.0"
+date-released: "2026-08-01"
+url: "https://yannickhuchard.github.io/enterprise-morphogenesis/"
+repository-code: "https://github.com/yannickhuchard/enterprise-morphogenesis"
+license: CC-BY-4.0
+abstract: >-
+  Enterprise Architecture as the morphogenetic system of the enterprise:
+  how strategy becomes a target form, and how that form is generated,
+  scaled, and kept viable under continuous change.
+keywords:
+  - enterprise architecture
+  - enterprise morphogenesis
+  - programmable enterprise
+  - artificial intelligence
+  - AI-native enterprise
+  - cybernetics
+  - systems theory
+  - architectural governance
+  - enterprise graph
+  - executable architecture
+  - organizational transformation
+preferred-citation:
+  type: report
+  authors:
+    - family-names: Huchard
+      given-names: Yannick
+      website: "https://yannickhuchard.com"
+  title: "Enterprise Morphogenesis: how strategy becomes a target form, and how that form is generated, scaled, and kept viable under continuous change."
+  year: 2026
+  month: 8
+  version: "1.0"
+  url: "https://yannickhuchard.github.io/enterprise-morphogenesis/"
+  languages:
+    - en
+  notes: "White paper"
+  abstract: >-
+    Enterprise Architecture as the morphogenetic system of the enterprise:
+    how strategy becomes a target form, and how that form is generated,
+    scaled, and kept viable under continuous change.
+  keywords:
+    - enterprise architecture
+    - enterprise morphogenesis
+    - programmable enterprise
+    - artificial intelligence
+    - AI-native enterprise
+    - cybernetics
+    - systems theory
+    - architectural governance
+    - enterprise graph
+    - executable architecture
+    - organizational transformation

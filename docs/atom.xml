@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Enterprise Morphogenesis</title>
+  <subtitle>White paper by Yannick Huchard. Enterprise Architecture as the morphogenetic system of the enterprise.</subtitle>
+  <link href="https://yannickhuchard.github.io/enterprise-morphogenesis/" rel="alternate" type="text/html"/>
+  <link href="https://yannickhuchard.github.io/enterprise-morphogenesis/atom.xml" rel="self" type="application/atom+xml"/>
+  <id>https://yannickhuchard.github.io/enterprise-morphogenesis/</id>
+  <updated>2026-08-01T00:00:00Z</updated>
+  <author>
+    <name>Yannick Huchard</name>
+    <uri>https://yannickhuchard.com</uri>
+  </author>
+  <rights>Copyright (c) 2026 Yannick Huchard. Licensed under CC BY 4.0.</rights>
+  <entry>
+    <title>Enterprise Morphogenesis: how strategy becomes a target form, and how that form is generated, scaled, and kept viable under continuous change.</title>
+    <link href="https://yannickhuchard.github.io/enterprise-morphogenesis/" rel="alternate" type="text/html"/>
+    <link href="https://yannickhuchard.github.io/enterprise-morphogenesis/index.md" rel="alternate" type="text/markdown"/>
+    <link href="https://yannickhuchard.github.io/enterprise-morphogenesis/llms-full.txt" rel="alternate" type="text/plain"/>
+    <id>https://yannickhuchard.github.io/enterprise-morphogenesis/</id>
+    <updated>2026-08-01T00:00:00Z</updated>
+    <published>2026-08-01T00:00:00Z</published>
+    <summary>Enterprise Architecture as the morphogenetic system of the enterprise: how strategy becomes a target form, and how that form is generated, scaled, and kept viable under continuous change.</summary>
+  </entry>
+</feed>

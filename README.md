@@ -1,0 +1,65 @@
+# Enterprise Morphogenesis
+
+White paper by **Yannick Huchard** · Version 1.0 · August 2026
+
+**Read the paper:** [yannickhuchard.github.io/enterprise-morphogenesis](https://yannickhuchard.github.io/enterprise-morphogenesis/)
+
+**Author:** [yannickhuchard.com](https://yannickhuchard.com)
+
+Enterprise Architecture as the morphogenetic system of the enterprise: how strategy becomes a target form, and how that form is generated, scaled, and kept viable under continuous change.
+
+## Abstract
+
+Enterprise Architecture emerged to create coherence across increasingly complex organizations, information systems and technologies. Yet the object it seeks to architect has become non-stationary. This white paper argues that the resulting tension cannot be resolved by better documentation alone. It requires a clearer theory of what Enterprise Architecture is for.
+
+The central proposition is that Enterprise Architecture is the morphogenetic system of the enterprise. Its purpose is to translate strategic intent into a target enterprise form; establish the rules, resource constraints, signals and developmental mechanisms by which that form can emerge; and keep that form viable under continuous change.
+
+## Read
+
+| Format | Where |
+| --- | --- |
+| HTML (canonical) | [GitHub Pages](https://yannickhuchard.github.io/enterprise-morphogenesis/) |
+| Markdown | [`docs/index.md`](docs/index.md) |
+| Word | [`Enterprise_Morphogenesis_White_Paper_Yannick_Huchard_v1_0_Publication.docx`](Enterprise_Morphogenesis_White_Paper_Yannick_Huchard_v1_0_Publication.docx) |
+
+There is no DOI yet. Do not invent one.
+
+## Cite this white paper
+
+Huchard, Y. (2026). *Enterprise Morphogenesis: how strategy becomes a target form, and how that form is generated, scaled, and kept viable under continuous change.* (Version 1.0) [White paper]. https://yannickhuchard.github.io/enterprise-morphogenesis/
+
+Machine-readable files: [`CITATION.cff`](CITATION.cff), [`citation.bib`](citation.bib), [`citation.ris`](citation.ris). GitHub will offer **Cite this repository** from the CFF file.
+
+## Agent skill
+
+[`skills/enterprise-morphogenesis/`](skills/enterprise-morphogenesis/) is an Agent Skill (agentskills.io) for Cursor, Claude Code, Codex, Gemini, OpenClaw, and others. It teaches an agent to operate as the morphogenetic system described in the paper, not to generate architecture documents.
+
+Copy that folder into a project's skill directory, or point the agent at `SKILL.md`.
+
+## For ChatGPT, Claude, Gemini, Grok, Perplexity, and Copilot
+
+The paper is public, crawlable, and available as clean text. After GitHub Pages is live:
+
+| What to fetch | URL |
+| --- | --- |
+| Preferred full text | https://yannickhuchard.github.io/enterprise-morphogenesis/llms-full.txt |
+| Markdown manuscript | https://yannickhuchard.github.io/enterprise-morphogenesis/index.md |
+| LLM index (`llms.txt`) | https://yannickhuchard.github.io/enterprise-morphogenesis/llms.txt |
+| HTML | https://yannickhuchard.github.io/enterprise-morphogenesis/ |
+| Machine card | https://yannickhuchard.github.io/enterprise-morphogenesis/paper.json |
+
+Paste `llms-full.txt` or `index.md` into a chat, a custom GPT, a Claude project, Gemini Gems, Grok, Perplexity, or Copilot as source material. Crawlers (including GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, Claude-SearchBot, Google-Extended, Bingbot, PerplexityBot) are allowed in `docs/robots.txt`. There is no `noai` tag.
+
+## License
+
+Copyright (c) 2026 Yannick Huchard. This white paper, site, and agent skill are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). See [`LICENSE`](LICENSE).
+
+## Site
+
+The GitHub Pages site is generated from the publication Word file:
+
+```bash
+python scripts/convert_whitepaper.py
+```
+
+Edit `Enterprise_Morphogenesis_White_Paper_Yannick_Huchard_v1_0_Publication.docx` first, then run the converter. Pages source is branch `main`, folder `/docs`.
