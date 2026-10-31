@@ -169,23 +169,41 @@ font-family:"Source Sans 3","Segoe UI",sans-serif;color:var(--ink);background:va
 .sector{min-height:44px;padding:0 18px;border-radius:999px;border:1.5px dashed #9AA5AD;background:var(--white);font:inherit;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;transition:all .3s}
 .sector:hover{border-color:var(--ink)}
 .sector[aria-pressed="true"]{border-style:solid;border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
-.ucflow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-top:8px}
-.uc{position:relative;padding:22px;border-radius:18px;border:1.5px solid var(--line);background:var(--white);display:flex;flex-direction:column;gap:10px;opacity:0}
+.ucflow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.7fr) minmax(0,1.5fr) minmax(0,1fr);gap:16px;margin-top:8px;align-items:start}
+.uc{position:relative;padding:16px 18px;border-radius:16px;border:1.5px solid var(--line);background:var(--white);display:flex;flex-direction:column;gap:8px;opacity:0}
 .uc .label{display:block}
-.ucflow.a .uc{animation:ucA .7s cubic-bezier(.2,.8,.2,1) forwards}
-.ucflow.b .uc{animation:ucB .7s cubic-bezier(.2,.8,.2,1) forwards}
-.uc:nth-child(2){animation-delay:.15s !important}.uc:nth-child(3){animation-delay:.3s !important}.uc:nth-child(4){animation-delay:.45s !important}.uc:nth-child(5){animation-delay:.6s !important}
+.ucflow.a .uc{animation:ucA .7s cubic-bezier(.2,.8,.2,1) forwards,stage 8s cubic-bezier(.4,0,.2,1) infinite}
+.ucflow.b .uc{animation:ucB .7s cubic-bezier(.2,.8,.2,1) forwards,stage 8s cubic-bezier(.4,0,.2,1) infinite}
+.ucflow .uc:nth-child(1){animation-delay:0s,.4s !important}.ucflow .uc:nth-child(2){animation-delay:.12s,1.53s !important}.ucflow .uc:nth-child(3){animation-delay:.24s,3.02s !important}.ucflow .uc:nth-child(4){animation-delay:.36s,4.82s !important}.ucflow .uc:nth-child(5){animation-delay:.48s,6.8s !important}
+@keyframes stage{0%{transform:none;box-shadow:0 0 0 0 rgba(23,28,33,0)}5%,18%{transform:translateY(-10px);box-shadow:0 24px 40px -22px rgba(23,28,33,.55);border-color:var(--ink)}26%,100%{transform:none;box-shadow:0 0 0 0 rgba(23,28,33,0)}}
+.uctrack{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.7fr) minmax(0,1.5fr) minmax(0,1fr);gap:16px;margin:4px 0 14px;height:30px}
+.ucline{position:absolute;left:8%;right:8%;top:50%;height:2px;margin-top:-1px;background:repeating-linear-gradient(90deg,#B9C2C9 0 6px,transparent 6px 11px);background-size:22px 2px;animation:dash 1.2s linear infinite}
+@keyframes dash{to{background-position:22px 0}}
+.ucdot{position:absolute;top:50%;left:0;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 6px rgba(23,28,33,.12);animation:ucdot 8s linear infinite;animation-delay:.4s}
+@keyframes ucdot{0%{left:0;opacity:0}3%{opacity:1}80%{left:100%;opacity:1}88%,100%{left:100%;opacity:0}}
+.ucnode{position:relative;z-index:1;justify-self:center;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);display:grid;place-items:center;font:500 11.5px "JetBrains Mono",monospace;animation:ucnode 8s linear infinite}
+.ucnode:nth-child(2){animation-delay:.4s}.ucnode:nth-child(3){animation-delay:1.53s}.ucnode:nth-child(4){animation-delay:3.02s}.ucnode:nth-child(5){animation-delay:4.82s}.ucnode:nth-child(6){animation-delay:6.8s}
+@keyframes ucnode{0%,3%{background:var(--paper);color:var(--ink);transform:scale(1)}6%,18%{background:var(--ink);color:#fff;transform:scale(1.18)}24%,100%{background:var(--paper);color:var(--ink);transform:scale(1)}}
+.sector{position:relative;overflow:hidden}
+.sector .sbar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--ink)}
+.sector.auto .sbar{animation:qbar 10s linear forwards}
+@media (max-width:1100px){.uctrack{display:none}}
 @keyframes ucA{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes ucB{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-.uc:not(:last-child)::after{content:"";position:absolute;right:-12px;top:50%;width:9px;height:9px;border-top:1.5px solid var(--ink);border-right:1.5px solid var(--ink);transform:translateY(-50%) rotate(45deg)}
-.uc .why{margin:0;font-family:"Source Serif 4",Georgia,serif;font-size:21px;line-height:1.22;letter-spacing:-.01em}
-.uc .txt{margin:0;font-size:16px;color:var(--ink)}
+.uc:not(:last-child)::after{content:"";position:absolute;right:-13px;top:50%;width:9px;height:9px;border-top:1.5px solid var(--ink);border-right:1.5px solid var(--ink);transform:translateY(-50%) rotate(45deg);animation:nudge 1.4s ease-in-out infinite}
+@keyframes nudge{0%,100%{right:-13px;opacity:.35}50%{right:-17px;opacity:1}}
+.uc.get{background-image:linear-gradient(110deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.12) 50%,rgba(255,255,255,0) 60%);background-size:250% 100%;background-position:120% 0}
+.ucflow .uc.get{animation-name:ucA,getglow}
+.ucflow.b .uc.get{animation-name:ucB,getglow}
+@keyframes getglow{0%,4%{background-position:120% 0;transform:none}8%,18%{transform:translateY(-10px) scale(1.02);box-shadow:0 30px 50px -24px rgba(23,28,33,.7)}20%{background-position:-20% 0}26%,100%{background-position:-20% 0;transform:none;box-shadow:none}}
+.uc .why{margin:0;font-family:"Source Serif 4",Georgia,serif;font-size:18px;line-height:1.25;letter-spacing:-.01em}
+.uc .txt{margin:0;font-size:15px;line-height:1.45;color:var(--ink)}
 .uc.ask{background:var(--wash);border-color:var(--wash)}
-.bubble{margin:0;font-family:"JetBrains Mono",monospace;font-size:13px;line-height:1.6;background:var(--white);border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:12px 14px}
-.uc ol{margin:0;padding-left:18px;font-size:15px;display:grid;gap:6px}
+.bubble{margin:0;font-family:"JetBrains Mono",monospace;font-size:12px;line-height:1.5;background:var(--white);border:1px solid var(--line);border-radius:12px 12px 12px 4px;padding:10px 12px}
+.uc ol{margin:0;padding-left:16px;font-size:13.5px;line-height:1.4;display:grid;gap:5px}
 .uc.get{background:var(--ink);border-color:var(--ink);color:#fff}
 .uc.get .label{color:#A7B1B9}
-.uc.get .txt{color:#fff;font-size:17px}
+.uc.get .txt{color:#fff;font-size:15.5px}
 @media (max-width:1100px){.ucflow{grid-template-columns:repeat(2,minmax(0,1fr))}.uc::after{display:none}}
 @media (max-width:640px){.ucflow{grid-template-columns:minmax(0,1fr)}}
 .still .uc{opacity:1}

@@ -31,7 +31,7 @@
       const saved = window.localStorage.getItem("em-lang");
       if (q === "en" || q === "fr") lang = q; else if (saved === "en" || saved === "fr") lang = saved;
     } catch (e) {}
-    this.state = { t: 0, lang, layer: 0, layerAuto: true, ex: 1, exAuto: true, exRun: 0, role: 0, deck: 0, slide: 0, deckAuto: true, uc: 0, sector: 0, ucRun: 0, copied: false, q: 0, qAuto: true, qRun: 0 };
+    this.state = { t: 0, lang, layer: 0, layerAuto: true, ex: 1, exAuto: true, exRun: 0, role: 0, deck: 0, slide: 0, deckAuto: true, uc: 0, sector: 0, sectorAuto: true, ucRun: 0, copied: false, q: 0, qAuto: true, qRun: 0 };
   }
   componentDidMount() {
     this.timer = setInterval(() => {
@@ -42,6 +42,7 @@
       if (this.state.exAuto && t % 4 === 2) { next.ex = (this.state.ex + 1) % 4; next.exRun = this.state.exRun + 1; }
       if (this.state.deckAuto && t % 4 === 1) next.slide = (this.state.slide + 1) % 8;
       if (this.state.qAuto && t % 8 === 0) { next.q = (this.state.q + 1) % 6; next.qRun = this.state.qRun + 1; }
+      if (this.state.sectorAuto && this.state.uc === 0 && t % 10 === 5) { next.sector = (this.state.sector + 1) % 3; next.ucRun = this.state.ucRun + 1; }
       this.setState(next);
     }, 1000);
   }
@@ -596,7 +597,11 @@
     const ucCur = ucRole.sectors ? ucRole.sectors[s.sector] : ucRole;
     const uc = { why: ucCur.why, need: ucCur.need, prompt: ucCur.prompt, get: ucCur.get, does: ucCur.does.map((d) => ({ t: d })) };
     const ucTabs = UC.map((u, i) => ({ t: u.t, on: i === s.uc, pick: () => this.setState({ uc: i, ucRun: this.state.ucRun + 1 }) }));
-    const sectors = (ucRole.sectors || []).map((x, i) => ({ t: x.t, on: i === s.sector, pick: () => this.setState({ sector: i, ucRun: this.state.ucRun + 1 }) }));
+    const sectors = (ucRole.sectors || []).map((x, i) => ({
+      t: x.t, on: i === s.sector,
+      cls: "sector" + (i === s.sector && s.sectorAuto && motion ? " auto" : ""),
+      pick: () => this.setState({ sector: i, sectorAuto: false, ucRun: this.state.ucRun + 1 })
+    }));
     const copyCmd = () => {
       const done = () => { this.setState({ copied: true }); setTimeout(() => this.setState({ copied: false }), 2200); };
       try { navigator.clipboard.writeText("npx skills add yannickhuchard/enterprise-morphogenesis").then(done, () => {}); } catch (e) {}
