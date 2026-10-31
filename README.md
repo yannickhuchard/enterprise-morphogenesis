@@ -47,7 +47,39 @@ Machine-readable files: [`CITATION.cff`](CITATION.cff), [`citation.bib`](citatio
 
 [`skills/enterprise-morphogenesis/`](skills/enterprise-morphogenesis/) is an Agent Skill (agentskills.io) for Cursor, Claude Code, Codex, Gemini, OpenClaw, and others. It teaches an agent to operate as the morphogenetic system described in the paper, not to generate architecture documents.
 
-Copy that folder into a project's skill directory, or point the agent at `SKILL.md`.
+Install it with the [skills.sh](https://skills.sh) CLI:
+
+```bash
+npx skills add yannickhuchard/enterprise-morphogenesis
+```
+
+Add `-g` to make it available in every project, or `-a <agent>` (for example `-a claude-code`) to install it for one agent. You can also copy the folder into a project's skill directory, or point the agent at `SKILL.md`.
+
+### Make the paper actionable
+
+The skill turns the paper into work your agent can do. It diagnoses the current control path, declares a one-page target form, installs a minimum viable loop, builds the fabric in your repository (graph, rules, sensing, provenance, Atlas, agent guardrails), teaches the teams, and steers with the six-dial gauge. Its rule: if it only produces slides or a list of principles, it has failed.
+
+It handles urgent business questions the way a strategy firm would: diagnosis, target form (what stays shared, what stays local), rules the tools enforce, and a drift signal.
+
+| Urgent question | Rules the skill puts in the tools | Drift signal |
+| --- | --- | --- |
+| **Strategy:** AI will reshape our operations. Where do we start without a three-year programme? | Every new activity reuses shared platforms first; no agent without an owner and a scope | Gap to the target form on one pilot domain |
+| **Go-to-market:** how do we redesign it with AI agents without losing consistency in prices, offers and brand? | Discount above the threshold needs human approval; an agent only promises approved terms; every contact respects consent | Sales cycle, win rate, off-grid discounts |
+| **Finance:** can agents run payment reconciliation and the close without us losing control? | Gap above the threshold goes to human review; no write-off without authority; every exception recorded with an expiry date | How long an unreconciled item stays open |
+| **Compliance:** a new regulation lands. How long until every system and agent applies it? | High-impact AI-assisted decisions keep human oversight; explanation evidence is kept | Delay between a rule's publication and its application |
+| **People:** which roles change, and how do teams work with agents? | Irreversible decisions stay human; every agent has a named owner | Newcomer orientation time, Atlas use |
+| **Technology:** how do we stop agents and AI-built apps from becoming shadow IT? | Creating means registering in the graph; a ruling that recurs three times becomes a rule | Share of registered components, exceptions opened versus retired |
+
+Or start from your *why*, then ask your agent:
+
+| Who | Why | Ask your agent | What you get |
+| --- | --- | --- | --- |
+| Executive | The strategy is approved, but it gets diluted across projects and budgets. | "Our strategy: grow beyond our home market, automate to cut costs, keep the regulator's trust. Express it as a target form and show where our decisions drift from it." | A short diagnosis and a one-page target form, marking what is committed, assumed or optional. |
+| Manager | Teams and agents move fast, but rules arrive by email, weeks too late. | "Set up a minimum loop on the Claims domain: one real obligation, two or three automatically checked rules, one gap indicator." | A loop running in your repository, with exceptions recorded (intent, authority, evidence, expiry). |
+| Architect | Too much time in review boards, reading documents few people read. | "Act as the morphogenetic system for this change: a new AI agent that processes refunds." | The change placed in the graph, the applicable rules checked, a recorded decision, and a proposal to encode rulings that recur. |
+| Employee | Unclear what can be decided locally, or whom to ask. | "Explain what my team can decide on its own, and how to challenge a rule that blocks good work." | A plain-language page from your domain's Atlas, and how to open a recorded challenge. |
+
+The same examples, in French and English, are on the [landing page](https://yannickhuchard.github.io/enterprise-morphogenesis/landing/#skill).
 
 ## For ChatGPT, Claude, Gemini, Grok, Perplexity, and Copilot
 

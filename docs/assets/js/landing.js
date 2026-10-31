@@ -31,7 +31,7 @@
       const saved = window.localStorage.getItem("em-lang");
       if (q === "en" || q === "fr") lang = q; else if (saved === "en" || saved === "fr") lang = saved;
     } catch (e) {}
-    this.state = { t: 0, lang, layer: 0, layerAuto: true, ex: 1, exAuto: true, exRun: 0, role: 0, deck: 0, slide: 0, deckAuto: true };
+    this.state = { t: 0, lang, layer: 0, layerAuto: true, ex: 1, exAuto: true, exRun: 0, role: 0, deck: 0, slide: 0, deckAuto: true, uc: 0, ucRun: 0, copied: false, q: 0, qAuto: true, qRun: 0 };
   }
   componentDidMount() {
     this.timer = setInterval(() => {
@@ -41,6 +41,7 @@
       if (this.state.layerAuto && t % 4 === 0) next.layer = (this.state.layer + 1) % 3;
       if (this.state.exAuto && t % 4 === 2) { next.ex = (this.state.ex + 1) % 4; next.exRun = this.state.exRun + 1; }
       if (this.state.deckAuto && t % 4 === 1) next.slide = (this.state.slide + 1) % 8;
+      if (this.state.qAuto && t % 8 === 0) { next.q = (this.state.q + 1) % 6; next.qRun = this.state.qRun + 1; }
       this.setState(next);
     }, 1000);
   }
@@ -56,11 +57,24 @@
     const en = s.lang === "en";
     const T = en ? {
       navLabel: "Sections", navProblem: "The problem", navIdea: "The idea", navAgents: "AI agents", navYou: "For you", navRead: "Read the white paper",
-      heroKicker: "White paper · Yannick Huchard · 2026",
+      heroKicker: "White paper · Version 1.0 · Published 31 August 2026 · Yannick Huchard",
       h1a: "When AI", h1b: "speeds everything up,", h1c: "who keeps your company", h1d: "on course?",
       heroA: "Not a frozen plan. Not an overloaded committee. This white paper proposes ", heroB: "a system that keeps the company coherent while it changes", heroC: ", and shows what everyone can do on Monday.",
       hooksLabel: "Your question", navDecks: "Presentations",
-      deckLabel: "07 · Presentations", deckTitle: "Present it to your teams.", deckGroup: "Choose a presentation",
+      deckLabel: "08 · Presentations", navSkill: "The skill",
+      skLabel: "07 · Take action", skTitle: "Turn the white paper into action, with your AI agent.",
+      skLead: "The Enterprise Morphogenesis skill installs in one line in Claude Code, Cursor, Codex, Gemini and other agents. It teaches them to act as the system that keeps the company coherent: diagnose, set the target form, run a first loop. Not to write one more document.",
+      skTermTitle: "Terminal", skTermHint: "# then ask your agent: “Act as the morphogenetic system of our company.”",
+      skSource: "See the skill on GitHub", skOptA: "Add ", skOptB: " to install it in all your projects, or ", skOptC: " to target one agent.",
+      skStepsLabel: "The skill’s method",
+      qLabel: "The questions that matter", qGroup: "Choose a question",
+      qTitle: "Six urgent questions. The skill handles them like a strategy firm: diagnosis, target form, rules, measurement.",
+      qWhyNow: "Why now:", qDiag: "Diagnosis", qForm: "Target form", qCommon: "Shared", qLocal: "Local",
+      qRules: "Rules in the tools", qSignal: "Drift signal", qDeliv: "Deliverable", qAsk: "Ask your agent",
+      skRefuse: "Its golden rule: if it only produces slides or a list of principles, it has failed.",
+      skUseLabel: "Examples", skUseTitle: "Start from your why. The agent does the rest.",
+      ucWhy: "Why", ucNeed: "Your need", ucAsk: "You ask", ucDoes: "The skill", ucGet: "You get",
+      copy: "Copy the command", copied: "Copied!", deckTitle: "Present it to your teams.", deckGroup: "Choose a presentation",
       deckLead: "Two ready-to-use decks, built from the white paper. One to open the conversation with everyone, one to go deep with architects and experts.",
       deckDownload: "Download this deck", deckPrev: "Previous slide", deckNext: "Next slide",
       ctaStart: "Understand it in 3 minutes", byline: "Enterprise Morphogenesis · Version 1.0",
@@ -88,11 +102,24 @@
       foot: "© 2026 Yannick Huchard · Enterprise Morphogenesis v1.0 · CC BY 4.0"
     } : {
       navLabel: "Sections", navProblem: "Le problème", navIdea: "L’idée", navAgents: "Les agents IA", navYou: "Pour vous", navRead: "Lire le white paper",
-      heroKicker: "White paper · Yannick Huchard · 2026",
+      heroKicker: "White paper · Version 1.0 · publié le 31 août 2026 · Yannick Huchard",
       h1a: "Quand l’IA", h1b: "accélère tout,", h1c: "qui garde votre entreprise", h1d: "sur sa trajectoire ?",
       heroA: "Pas un plan figé. Pas un comité débordé. Ce white paper propose ", heroB: "un système qui garde l’entreprise cohérente pendant qu’elle change", heroC: ", et montre ce que chacun peut faire dès lundi.",
       hooksLabel: "Votre question", navDecks: "Présentations",
-      deckLabel: "07 · Présentations", deckTitle: "Présentez-le à vos équipes.", deckGroup: "Choisir une présentation",
+      deckLabel: "08 · Présentations", navSkill: "Le skill",
+      skLabel: "07 · Passer à l’action", skTitle: "Passez du white paper à l’action, avec votre agent IA.",
+      skLead: "Le skill Enterprise Morphogenesis s’installe en une ligne dans Claude Code, Cursor, Codex, Gemini et d’autres agents. Il leur apprend à agir comme le système qui garde l’entreprise cohérente : diagnostiquer, poser la forme cible, faire tourner une première boucle. Pas à écrire un document de plus.",
+      skTermTitle: "Terminal", skTermHint: "# puis demandez à votre agent : « Agis comme le système morphogénétique de notre entreprise. »",
+      skSource: "Voir le skill sur GitHub", skOptA: "Ajoutez ", skOptB: " pour l’installer dans tous vos projets, ou ", skOptC: " pour un agent précis.",
+      skStepsLabel: "La méthode du skill",
+      qLabel: "Les questions qui comptent", qGroup: "Choisir une question",
+      qTitle: "Six questions urgentes. Le skill les traite comme un cabinet de stratégie : diagnostic, forme cible, règles, mesure.",
+      qWhyNow: "Pourquoi maintenant :", qDiag: "Diagnostic", qForm: "Forme cible", qCommon: "Commun", qLocal: "Local",
+      qRules: "Règles dans les outils", qSignal: "Signal d’écart", qDeliv: "Livrable", qAsk: "À demander à votre agent",
+      skRefuse: "Sa règle d’or : s’il ne produit que des slides ou une liste de principes, il a échoué.",
+      skUseLabel: "Exemples d’usage", skUseTitle: "Partez de votre « pourquoi ». L’agent fait le reste.",
+      ucWhy: "Pourquoi", ucNeed: "Votre besoin", ucAsk: "Vous demandez", ucDoes: "Le skill", ucGet: "Vous obtenez",
+      copy: "Copier la commande", copied: "Copié !", deckTitle: "Présentez-le à vos équipes.", deckGroup: "Choisir une présentation",
       deckLead: "Deux présentations prêtes à l’emploi, tirées du white paper. L’une pour ouvrir la conversation avec tout le monde, l’autre pour approfondir avec les architectes et les experts.",
       deckDownload: "Télécharger cette présentation", deckPrev: "Diapositive précédente", deckNext: "Diapositive suivante",
       ctaStart: "Comprendre en 3 minutes", byline: "Enterprise Morphogenesis · Version 1.0",
@@ -374,6 +401,181 @@
       ["Collaborateur", "Quelle est ma place dans l’entreprise de demain ?", "#vous"]
     ]).map((h) => ({ who: h[0], q: h[1], href: h[2] }));
 
+    // Skill: steps and use cases
+    const SK = en ? [
+      ["Diagnose", "Where do local decisions affect the whole company? Where does architecture lag behind?"],
+      ["Declare the target form", "A one-page card: intended form, a few testable rules, what stays local, signs of drift."],
+      ["Install a first loop", "One domain, one owner, one real obligation, two or three executable rules."],
+      ["Build the fabric in the repository", "Graph, rules, sensors, decision ledger, Atlas, agent guardrails."],
+      ["Teach the teams", "Architects, delivery teams and agents, and everyone else, each in their own way."],
+      ["Steer with the gauge", "Six dials read separately, then widen domain by domain."]
+    ] : [
+      ["Diagnostiquer", "Où vos décisions locales pèsent-elles sur toute l’entreprise ? Où l’architecture prend-elle du retard ?"],
+      ["Déclarer la forme cible", "Une carte d’une page : forme visée, quelques règles vérifiables, ce qui reste local, les signes d’écart."],
+      ["Installer une première boucle", "Un domaine, un responsable, une vraie obligation, deux ou trois règles exécutables."],
+      ["Construire la fabrique dans le dépôt", "Graphe, règles, capteurs, registre des décisions, Atlas, garde-fous des agents."],
+      ["Former les équipes", "Architectes, équipes de livraison et agents, et tous les autres, chacun à sa façon."],
+      ["Piloter avec la jauge", "Six cadrans lus séparément, puis élargir domaine par domaine."]
+    ];
+    const skSteps = SK.map((x, i) => ({ n: "0" + (i + 1), h: x[0], p: x[1] }));
+    const UC = en ? [
+      { t: "Executive", why: "Our strategy is approved, but it gets diluted across projects and budgets.", need: "See where execution drifts, without launching a two-year programme.",
+        prompt: "“Our strategy: grow beyond our home market, automate to cut costs, keep the regulator’s trust. Express it as a target form and show where our decisions drift from it.”",
+        does: ["Diagnoses where local decisions cost the whole company", "Writes a one-page target-form card", "Separates what is committed, assumed or optional"], get: "A short diagnosis and a clear target form. Not a 40-page report." },
+      { t: "Manager", why: "My teams and our agents move fast, but rules arrive by email, weeks too late.", need: "Clear rules applied in the tools, and the right to challenge those that block.",
+        prompt: "“Set up a minimum loop on the Claims domain: one real obligation, two or three automatically checked rules, one gap indicator.”",
+        does: ["Maps only what the obligation touches", "Turns 2 or 3 rules into automatic checks", "Records every exception: intent, authority, evidence, expiry date"], get: "A loop running in your repository, with its tracking checklist." },
+      { t: "Architect", why: "I spend my time in review boards, reading documents few people read.", need: "Move from gatekeeper to navigator: encode what repeats, keep my judgement for what is new.",
+        prompt: "“Act as the morphogenetic system for this change: a new AI agent that processes refunds.”",
+        does: ["Places the change in the enterprise graph", "Checks the applicable rules: inside the zone, or a dated exception", "Proposes encoding a ruling once it comes back three times"], get: "A recorded decision and a rule ready to be automated." },
+      { t: "Employee", why: "I don’t always know what I can decide on my own, or whom to ask.", need: "A readable map of my surroundings and a simple way to flag a rule that blocks.",
+        prompt: "“Explain what my team can decide on its own, and how to challenge a rule that blocks good work.”",
+        does: ["Reads your domain’s map (the Atlas)", "Separates what is allowed locally from what needs approval", "Explains how to open a recorded challenge"], get: "A clear page for your team, in plain language." }
+    ] : [
+      { t: "Dirigeant·e", why: "Ma stratégie est votée, mais elle se dilue dans les projets et les budgets.", need: "Voir où l’exécution s’écarte, sans lancer un programme de deux ans.",
+        prompt: "« Notre stratégie : grandir hors de notre marché, automatiser pour baisser les coûts, garder la confiance du régulateur. Exprime-la comme une forme cible et montre où nos décisions s’en écartent. »",
+        does: ["Diagnostique où vos décisions locales coûtent à toute l’entreprise", "Rédige une carte de forme cible d’une page", "Sépare ce qui est engagé, supposé ou optionnel"], get: "Un diagnostic court et une forme cible claire. Pas un rapport de 40 pages." },
+      { t: "Manager", why: "Mes équipes et nos agents vont vite, mais les règles arrivent par e-mail, des semaines trop tard.", need: "Des règles claires, appliquées dans les outils, et le droit de contester celles qui bloquent.",
+        prompt: "« Installe une boucle minimale sur le domaine Sinistres : une vraie obligation, deux ou trois règles vérifiées automatiquement, un indicateur d’écart. »",
+        does: ["Cartographie seulement ce que l’obligation touche", "Transforme 2 ou 3 règles en contrôles automatiques", "Trace chaque exception : intention, autorité, preuve, date d’expiration"], get: "Une boucle qui tourne dans votre dépôt, avec sa checklist de suivi." },
+      { t: "Architecte", why: "Je passe mon temps en comités, à relire des documents que peu de gens lisent.", need: "Passer de gardien à navigateur : encoder ce qui se répète, garder mon jugement pour le nouveau.",
+        prompt: "« Agis comme le système morphogénétique pour ce changement : un nouvel agent IA qui traite les remboursements. »",
+        does: ["Situe le changement dans le graphe de l’entreprise", "Vérifie les règles applicables : dans la zone, ou exception datée", "Propose d’encoder une décision dès qu’elle revient trois fois"], get: "Une décision tracée et une règle prête à être automatisée." },
+      { t: "Collaborateur·rice", why: "Je ne sais pas toujours ce que j’ai le droit de décider seul, ni à qui demander.", need: "Une carte lisible de mon environnement et un moyen simple de signaler une règle qui bloque.",
+        prompt: "« Explique-moi ce que mon équipe peut décider seule, et comment contester une règle qui bloque un bon travail. »",
+        does: ["Lit la carte de votre domaine (l’Atlas)", "Distingue ce qui est autorisé localement de ce qui demande un accord", "Explique comment ouvrir une contestation tracée"], get: "Une page claire pour votre équipe, en langage simple." }
+    ];
+    // Six urgent questions, answered with the skill's method
+    const GARTNER = "https://www.gartner.com/en/newsroom/press-releases/2026-04-23-gartner-survey-reveals-80-percent-of-ceos-say-artificial-intelligence-will-force-operational-capability-overhauls";
+    const PAPER = "https://yannickhuchard.github.io/enterprise-morphogenesis/";
+    const Q = en ? [
+      { domain: "Strategy and operating model", who: "CEO, executive committee", short: "Where do we start with AI?",
+        q: "AI will reshape our operations: where do we start, without launching a three-year programme?",
+        why: "80% of CEOs surveyed by Gartner expect AI to bring a medium-to-high degree of change to their operational capabilities.", src: GARTNER, srcName: "Gartner, April 2026",
+        diag: "Find where local decisions create costs for the whole company, and where architecture arrives too late.",
+        common: ["Customer identity", "Reference data", "Risk rules"], local: ["Offers by market", "Channels", "Language"],
+        rules: ["Every new activity reuses shared platforms first", "No agent without an owner and a scope"],
+        signal: "Gap to the target form, measured on one pilot domain",
+        deliv: "A one-page target form, and a pilot domain chosen with its owner.",
+        prompt: "“Express our strategy as a target form and propose the pilot domain for our first loop.”" },
+      { domain: "Go-to-market", who: "Sales, marketing", short: "Redesign go-to-market with AI agents",
+        q: "How do we redesign our go-to-market with AI agents, without losing consistency in prices, offers and brand?",
+        why: "Bain estimates that AI could double the time sellers spend with customers.", src: "https://www.bain.com/insights/ai-transforming-productivity-sales-remains-new-frontier/", srcName: "Bain, Technology Report 2025",
+        diag: "Map who touches the customer, with which data, and where discounts and promises are decided.",
+        common: ["Catalogue and price grid", "Customer identity and consent", "Contract terms"], local: ["Messages by segment", "Prospecting sequences", "Channels"],
+        rules: ["Discount above the threshold: human approval", "An agent only promises approved terms", "Every contact respects consent"],
+        signal: "Sales cycle, win rate, off-grid discounts",
+        deliv: "A go-to-market where agents and sellers move fast, within rules the tools check.",
+        prompt: "“Redesign our go-to-market with AI agents: what stays shared, what varies, and the rules no agent may cross.”" },
+      { domain: "Finance", who: "CFO, finance operations", short: "Payment reconciliation and close by agents",
+        q: "Can we hand payment reconciliation and the close to agents, without losing control?",
+        why: "In a 2025 PYMNTS survey of 60 CFOs at large US companies, none was ready to give AI agents full access to company data.", src: "https://www.pymnts.com/report/study/ai-agents-in-the-enterprise/", srcName: "PYMNTS Intelligence, Sept. 2025",
+        diag: "Follow invoices, payments and bank statements: where gaps pile up, who decides, how long it takes.",
+        common: ["Chart of accounts", "Counterparty master data", "Segregation of duties"], local: ["Tax rules by country", "Banks and formats"],
+        rules: ["Gap above the threshold: human review", "No write-off without authority", "Every exception recorded, with an expiry date"],
+        signal: "How long an unreconciled item stays open",
+        deliv: "A reconciliation loop where agents handle the routine and people handle the exceptions.",
+        prompt: "“Set up a minimum loop on payment reconciliation: executable control rules, recorded exceptions, one gap indicator.”" },
+      { domain: "Risk and compliance", who: "Risk, compliance, legal", short: "Apply a new regulation fast",
+        q: "A new regulation lands: how long until every system and every agent applies it?",
+        why: "The white paper treats architecture latency (sense, interpret, decide, propagate, adopt) as a first-class metric.", src: PAPER + "#44-architecture-latency-becomes-a-first-class-metric", srcName: "White paper, §4.4",
+        diag: "Link the obligation to the products, models, agents and teams it affects.",
+        common: ["Register of obligations", "Model governance"], local: ["Requirements by jurisdiction"],
+        rules: ["High-impact AI-assisted decision: human oversight", "Explanation evidence kept"],
+        signal: "Delay between a rule’s publication and its application",
+        deliv: "A rule propagated into the tools, not one more memo to read.",
+        prompt: "“This regulation changes: find everything it touches in the graph and propose the rules to encode.”" },
+      { domain: "People and organisation", who: "HR, managers", short: "Roles that change with agents",
+        q: "Which roles change, and how do our teams work with agents?",
+        why: "Only 27% of CEOs surveyed by Gartner expect their organisation to run mainly without human intervention.", src: GARTNER, srcName: "Gartner, April 2026",
+        diag: "Sort the tasks that go to agents, those that become human-agent pairs, and those that stay human.",
+        common: ["Agent autonomy tiers", "Explicit human accountability"], local: ["Team organisation", "Rituals"],
+        rules: ["Any irreversible decision stays human", "Every agent has a named owner"],
+        signal: "Time for a newcomer to find their way, Atlas use",
+        deliv: "A readable Atlas and a role plan by stage, built with HR.",
+        prompt: "“For the Claims team, separate what goes to agents, what becomes a human-agent pair, and what stays human.”" },
+      { domain: "Technology", who: "CIO, architecture", short: "Avoid shadow IT made of agents",
+        q: "How do we stop hundreds of agents and AI-built apps from becoming a new shadow IT?",
+        why: "The white paper: unregistered components piling up at machine speed recreate the stale-repository problem, only faster.", src: PAPER + "#91-architectural-condensation-how-judgment-becomes-substrate", srcName: "White paper, §9.1",
+        diag: "Measure what is created outside any register, and what pipelines and agents really consume.",
+        common: ["Agent identity", "Component register", "Shared guardrails"], local: ["Team tools", "Local automations"],
+        rules: ["Creating means registering: no extension outside the graph", "A ruling that comes back three times becomes a rule"],
+        signal: "Share of registered components, exceptions opened versus retired",
+        deliv: "Extensions that are born compliant, and a review board with less routine.",
+        prompt: "“Make registration mandatory for agents and extensions, with their autonomy tiers.”" }
+    ] : [
+      { domain: "Stratégie et modèle opérationnel", who: "Direction générale, comex", short: "Par où commencer avec l’IA ?",
+        q: "L’IA va transformer nos opérations : par où commencer, sans lancer un programme de trois ans ?",
+        why: "80 % des dirigeants interrogés par Gartner s’attendent à ce que l’IA change moyennement à fortement leurs capacités opérationnelles.", src: GARTNER, srcName: "Gartner, avril 2026",
+        diag: "Repérer où les décisions locales créent des coûts pour toute l’entreprise, et où l’architecture arrive trop tard.",
+        common: ["Identité client", "Données de référence", "Règles de risque"], local: ["Offres par marché", "Canaux", "Langue"],
+        rules: ["Toute nouvelle activité réutilise d’abord les plateformes communes", "Pas d’agent sans responsable ni périmètre"],
+        signal: "Écart à la forme cible, mesuré sur un domaine pilote",
+        deliv: "Une forme cible d’une page et un domaine pilote choisi avec son responsable.",
+        prompt: "« Exprime notre stratégie comme une forme cible et propose le domaine pilote de notre première boucle. »" },
+      { domain: "Go-to-market", who: "Ventes, marketing", short: "Redessiner le go-to-market avec des agents IA",
+        q: "Comment redessiner notre go-to-market avec des agents IA, sans perdre la cohérence des prix, des offres et de la marque ?",
+        why: "Selon Bain, l’IA pourrait doubler le temps que les vendeurs passent avec leurs clients.", src: "https://www.bain.com/insights/ai-transforming-productivity-sales-remains-new-frontier/", srcName: "Bain, Technology Report 2025",
+        diag: "Cartographier qui touche le client, avec quelles données, et où se décident remises et promesses.",
+        common: ["Catalogue et grille de prix", "Identité client et consentement", "Conditions contractuelles"], local: ["Messages par segment", "Séquences de prospection", "Canaux"],
+        rules: ["Remise au-delà du seuil : validation humaine", "Un agent ne promet que des conditions approuvées", "Tout contact respecte le consentement"],
+        signal: "Cycle de vente, taux de gain, remises hors grille",
+        deliv: "Un go-to-market où agents et vendeurs vont vite, dans des règles vérifiées par les outils.",
+        prompt: "« Redessine notre go-to-market avec des agents IA : ce qui reste commun, ce qui varie, et les règles qu’aucun agent ne peut franchir. »" },
+      { domain: "Finance", who: "Direction financière", short: "Réconciliation des paiements et clôture par des agents",
+        q: "Peut-on confier la réconciliation des paiements et la clôture à des agents, sans perdre le contrôle ?",
+        why: "Dans une enquête PYMNTS de 2025 auprès de 60 directeurs financiers de grandes entreprises américaines, aucun n’était prêt à donner aux agents IA un accès total aux données de l’entreprise.", src: "https://www.pymnts.com/report/study/ai-agents-in-the-enterprise/", srcName: "PYMNTS Intelligence, sept. 2025",
+        diag: "Suivre factures, paiements et relevés bancaires : où les écarts s’accumulent, qui tranche, en combien de temps.",
+        common: ["Plan de comptes", "Référentiel tiers", "Séparation des tâches"], local: ["Règles fiscales par pays", "Banques et formats"],
+        rules: ["Écart au-delà du seuil : revue humaine", "Aucune passation en perte sans autorité", "Chaque exception tracée, avec date d’expiration"],
+        signal: "Durée pendant laquelle un écart reste ouvert",
+        deliv: "Une boucle de réconciliation où les agents traitent le courant et les humains l’exceptionnel.",
+        prompt: "« Installe une boucle minimale sur la réconciliation des paiements : règles de contrôle exécutables, exceptions tracées, un indicateur d’écart. »" },
+      { domain: "Risque et conformité", who: "Risques, conformité, juridique", short: "Appliquer vite une nouvelle réglementation",
+        q: "Une nouvelle réglementation tombe : en combien de temps tous nos systèmes et nos agents l’appliquent-ils ?",
+        why: "Le white paper fait de la latence d’architecture (détecter, interpréter, décider, propager, adopter) une mesure à part entière.", src: PAPER + "#44-architecture-latency-becomes-a-first-class-metric", srcName: "White paper, §4.4",
+        diag: "Relier l’obligation aux produits, modèles, agents et équipes qu’elle touche.",
+        common: ["Registre des obligations", "Gouvernance des modèles"], local: ["Exigences par juridiction"],
+        rules: ["Décision assistée par IA à fort impact : supervision humaine", "Preuves d’explication conservées"],
+        signal: "Délai entre la publication d’une règle et son application",
+        deliv: "Une règle propagée dans les outils, pas une note de plus à lire.",
+        prompt: "« Cette réglementation change : trouve tout ce qu’elle touche dans le graphe et propose les règles à encoder. »" },
+      { domain: "Personnes et organisation", who: "RH, managers", short: "Les rôles qui changent avec les agents",
+        q: "Quels rôles changent, et comment nos équipes travaillent-elles avec les agents ?",
+        why: "Seuls 27 % des dirigeants interrogés par Gartner s’attendent à ce que leur organisation fonctionne principalement sans intervention humaine.", src: GARTNER, srcName: "Gartner, avril 2026",
+        diag: "Trier les tâches qui passent aux agents, celles qui deviennent des duos humain-agent, et celles qui restent humaines.",
+        common: ["Paliers d’autonomie des agents", "Responsabilités humaines explicites"], local: ["Organisation des équipes", "Rituels"],
+        rules: ["Toute décision irréversible reste humaine", "Chaque agent a un responsable nommé"],
+        signal: "Temps d’orientation d’un nouvel arrivant, usage de l’Atlas",
+        deliv: "Un Atlas lisible et un plan des rôles par étape, construit avec les RH.",
+        prompt: "« Pour l’équipe Sinistres, distingue ce qui passe aux agents, ce qui devient un duo humain-agent et ce qui reste humain. »" },
+      { domain: "Technologie", who: "DSI, architecture", short: "Éviter un shadow IT fait d’agents",
+        q: "Comment éviter que des centaines d’agents et d’applications créés avec l’IA deviennent un nouveau shadow IT ?",
+        why: "Le white paper : des composants non enregistrés qui s’accumulent à la vitesse des machines recréent le problème des référentiels obsolètes, en plus vite.", src: PAPER + "#91-architectural-condensation-how-judgment-becomes-substrate", srcName: "White paper, §9.1",
+        diag: "Mesurer ce qui est créé hors de tout registre, et ce que les pipelines et les agents consomment vraiment.",
+        common: ["Identité des agents", "Registre des composants", "Garde-fous partagés"], local: ["Outils des équipes", "Automatisations locales"],
+        rules: ["Créer, c’est enregistrer : pas d’extension hors du graphe", "Une décision qui revient trois fois devient une règle"],
+        signal: "Part des composants enregistrés, exceptions ouvertes et retirées",
+        deliv: "Des extensions qui naissent conformes, et un comité qui traite moins de routine.",
+        prompt: "« Rends obligatoire l’enregistrement des agents et des extensions, avec leurs paliers d’autonomie. »" }
+    ];
+    const qCur = Q[s.q];
+    const wrap = (xs) => xs.map((x) => ({ t: x }));
+    const qc = Object.assign({}, qCur, { common: wrap(qCur.common), local: wrap(qCur.local), rules: wrap(qCur.rules) });
+    const qs = Q.map((x, i) => ({
+      n: "0" + (i + 1), domain: x.domain, short: x.short, on: i === s.q,
+      cls: "qbtn" + (i === s.q ? " on" : "") + (s.qAuto && motion ? " auto" : ""),
+      pick: () => this.setState({ q: i, qAuto: false, qRun: this.state.qRun + 1 })
+    }));
+
+    const ucCur = UC[s.uc];
+    const uc = { why: ucCur.why, need: ucCur.need, prompt: ucCur.prompt, get: ucCur.get, does: ucCur.does.map((d) => ({ t: d })) };
+    const ucTabs = UC.map((u, i) => ({ t: u.t, on: i === s.uc, pick: () => this.setState({ uc: i, ucRun: this.state.ucRun + 1 }) }));
+    const copyCmd = () => {
+      const done = () => { this.setState({ copied: true }); setTimeout(() => this.setState({ copied: false }), 2200); };
+      try { navigator.clipboard.writeText("npx skills add yannickhuchard/enterprise-morphogenesis").then(done, () => {}); } catch (e) {}
+    };
+
     // Presentations
     const BASE = "../presentations/";
     const CH = ["Agenda", "Ch. 1", "Ch. 2", "Ch. 4", "Ch. 5", "Ch. 8", "Ch. 9", "Ch. 11"];
@@ -406,6 +608,8 @@
 
     return {
       hooks, decks, slides, thumbs,
+      skSteps, uc, ucTabs, qs, qc, qPanelCls: "qpanel " + (s.qRun % 2 ? "b" : "a"), ucCls: "ucflow " + (s.ucRun % 2 ? "b" : "a"),
+      copyCmd, copyLabel: s.copied ? T.copied : T.copy,
       deckFile: deck.file, deckOther: other.file,
       deckOtherLabel: (en ? "Or the " : "Ou la version ") + other.title.toLowerCase(),
       slideCounter: CH[s.slide] + " · " + (s.slide + 1) + " / 8",
