@@ -31,7 +31,7 @@
       const saved = window.localStorage.getItem("em-lang");
       if (q === "en" || q === "fr") lang = q; else if (saved === "en" || saved === "fr") lang = saved;
     } catch (e) {}
-    this.state = { t: 0, lang, layer: 0, layerAuto: true, ex: 1, exAuto: true, exRun: 0, role: 0, deck: 0, slide: 0, deckAuto: true, uc: 0, ucRun: 0, copied: false, q: 0, qAuto: true, qRun: 0 };
+    this.state = { t: 0, lang, layer: 0, layerAuto: true, ex: 1, exAuto: true, exRun: 0, role: 0, deck: 0, slide: 0, deckAuto: true, uc: 0, sector: 0, ucRun: 0, copied: false, q: 0, qAuto: true, qRun: 0 };
   }
   componentDidMount() {
     this.timer = setInterval(() => {
@@ -73,6 +73,7 @@
       qRules: "Rules in the tools", qSignal: "Drift signal", qDeliv: "Deliverable", qAsk: "Ask your agent",
       skRefuse: "Its golden rule: if it only produces slides or a list of principles, it has failed.",
       skUseLabel: "Examples", skUseTitle: "Start from your why. The agent does the rest.",
+      sectorLabel: "Industry", sectorGroup: "Choose an industry",
       ucWhy: "Why", ucNeed: "Your need", ucAsk: "You ask", ucDoes: "The skill", ucGet: "You get",
       copy: "Copy the command", copied: "Copied!", deckTitle: "Present it to your teams.", deckGroup: "Choose a presentation",
       deckLead: "Two ready-to-use decks, built from the white paper. One to open the conversation with everyone, one to go deep with architects and experts.",
@@ -118,6 +119,7 @@
       qRules: "Règles dans les outils", qSignal: "Signal d’écart", qDeliv: "Livrable", qAsk: "À demander à votre agent",
       skRefuse: "Sa règle d’or : s’il ne produit que des slides ou une liste de principes, il a échoué.",
       skUseLabel: "Exemples d’usage", skUseTitle: "Partez de votre « pourquoi ». L’agent fait le reste.",
+      sectorLabel: "Secteur", sectorGroup: "Choisir un secteur",
       ucWhy: "Pourquoi", ucNeed: "Votre besoin", ucAsk: "Vous demandez", ucDoes: "Le skill", ucGet: "Vous obtenez",
       copy: "Copier la commande", copied: "Copié !", deckTitle: "Présentez-le à vos équipes.", deckGroup: "Choisir une présentation",
       deckLead: "Deux présentations prêtes à l’emploi, tirées du white paper. L’une pour ouvrir la conversation avec tout le monde, l’autre pour approfondir avec les architectes et les experts.",
@@ -419,9 +421,20 @@
     ];
     const skSteps = SK.map((x, i) => ({ n: "0" + (i + 1), h: x[0], p: x[1] }));
     const UC = en ? [
-      { t: "Executive", why: "Our strategy is approved, but it gets diluted across projects and budgets.", need: "See where execution drifts, without launching a two-year programme.",
-        prompt: "“Our strategy: grow beyond our home market, automate to cut costs, keep the regulator’s trust. Express it as a target form and show where our decisions drift from it.”",
-        does: ["Diagnoses where local decisions cost the whole company", "Writes a one-page target-form card", "Separates what is committed, assumed or optional"], get: "A short diagnosis and a clear target form. Not a 40-page report." },
+      { t: "Executive", sectors: [
+        { t: "Pharma: generics", why: "Our strategy is clear, but every country, plant and team translates it its own way.", need: "Grow fast with pharmacies, without ever weakening patient safety or compliance.",
+          prompt: "“Our strategy: become the leading generics supplier to independent pharmacies in Southern Europe, automate pharmacovigilance to cut costs, and keep the trust of health authorities. Express it as a target form and show where our decisions drift from it.”",
+          does: ["Separates what stays shared (quality, batch traceability, pharmacovigilance) from what varies by country (prices, reimbursement, distribution)", "Encodes the non-negotiables: every serious safety signal goes to a human expert", "Tracks a drift signal: time to process reports, stock-outs in pharmacies"],
+          get: "A one-page target form, a pilot country, and the first rules ready to be checked in the tools." },
+        { t: "Banking and asset management", why: "Clients expect advice as personal as their apps, but our processes belong to another era.", need: "Deliver hyper-personalisation at scale, without losing control of risk or compliance.",
+          prompt: "“Our strategy: give every client a tailor-made portfolio and advice with AI, automate suitability checks and reporting to cut costs, and keep the regulator’s trust. Express it as a target form and show where our decisions drift from it.”",
+          does: ["Separates what stays shared (client knowledge, risk profile, approved investment universe) from what is personalised (allocation, messages, timing)", "Encodes the non-negotiables: no recommendation outside the client’s suitability profile, every piece of advice recorded", "Tracks a drift signal: out-of-profile recommendations, reporting delays"],
+          get: "A one-page target form and a pilot segment, for example private-banking clients." },
+        { t: "Automotive", why: "We sell vehicles, but our clients buy availability and controlled costs.", need: "Move from the vehicle to the software service, then to autonomy, without breaking what works.",
+          prompt: "“Our strategy: sell our electric vehicles to corporate fleets outside Europe, automate over-the-air software updates to cut costs, and run our first autonomous shuttles on our clients’ logistics sites. Express it as a target form and show where our decisions drift from it.”",
+          does: ["Connects vehicles, software, sensors, sites and contracts in one graph", "Encodes the non-negotiables: no update without passed safety tests, autonomy expands site by site", "Tracks a drift signal: fleet availability, incidents after an update"],
+          get: "A one-page target form and a staged path toward autonomy." }
+      ] },
       { t: "Manager", why: "My teams and our agents move fast, but rules arrive by email, weeks too late.", need: "Clear rules applied in the tools, and the right to challenge those that block.",
         prompt: "“Set up a minimum loop on the Claims domain: one real obligation, two or three automatically checked rules, one gap indicator.”",
         does: ["Maps only what the obligation touches", "Turns 2 or 3 rules into automatic checks", "Records every exception: intent, authority, evidence, expiry date"], get: "A loop running in your repository, with its tracking checklist." },
@@ -432,9 +445,20 @@
         prompt: "“Explain what my team can decide on its own, and how to challenge a rule that blocks good work.”",
         does: ["Reads your domain’s map (the Atlas)", "Separates what is allowed locally from what needs approval", "Explains how to open a recorded challenge"], get: "A clear page for your team, in plain language." }
     ] : [
-      { t: "Dirigeant·e", why: "Ma stratégie est votée, mais elle se dilue dans les projets et les budgets.", need: "Voir où l’exécution s’écarte, sans lancer un programme de deux ans.",
-        prompt: "« Notre stratégie : grandir hors de notre marché, automatiser pour baisser les coûts, garder la confiance du régulateur. Exprime-la comme une forme cible et montre où nos décisions s’en écartent. »",
-        does: ["Diagnostique où vos décisions locales coûtent à toute l’entreprise", "Rédige une carte de forme cible d’une page", "Sépare ce qui est engagé, supposé ou optionnel"], get: "Un diagnostic court et une forme cible claire. Pas un rapport de 40 pages." },
+      { t: "Dirigeant·e", sectors: [
+        { t: "Pharma : génériques", why: "Notre stratégie est claire, mais chaque pays, chaque usine et chaque équipe la traduit à sa façon.", need: "Grandir vite auprès des pharmacies, sans jamais fragiliser la sécurité des patients ni la conformité.",
+          prompt: "« Notre stratégie : devenir le premier fournisseur de médicaments génériques des pharmacies indépendantes en Europe du Sud, automatiser la pharmacovigilance pour baisser nos coûts, et garder la confiance des autorités de santé. Exprime-la comme une forme cible et montre où nos décisions s’en écartent. »",
+          does: ["Sépare ce qui reste commun (qualité, traçabilité des lots, pharmacovigilance) de ce qui varie par pays (prix, remboursement, distribution)", "Encode les règles intouchables : tout signal grave de pharmacovigilance passe par un expert humain", "Suit un signal d’écart : délai de traitement des déclarations, ruptures en pharmacie"],
+          get: "Une forme cible d’une page, un pays pilote, et les premières règles prêtes à être vérifiées dans les outils." },
+        { t: "Banque et gestion d’actifs", why: "Nos clients attendent des conseils aussi personnalisés que leurs applications, mais nos processus datent d’une autre époque.", need: "Offrir l’hyper-personnalisation à grande échelle, sans perdre la maîtrise du risque ni de la conformité.",
+          prompt: "« Notre stratégie : offrir à chaque client un portefeuille et des conseils sur mesure grâce à l’IA, automatiser les contrôles d’adéquation et le reporting pour baisser nos coûts, et garder la confiance du régulateur. Exprime-la comme une forme cible et montre où nos décisions s’en écartent. »",
+          does: ["Sépare ce qui reste commun (connaissance client, profil de risque, univers d’investissement autorisé) de ce qui est personnalisé (allocation, messages, rythme)", "Encode les règles intouchables : aucune recommandation hors du profil d’adéquation du client, chaque conseil tracé", "Suit un signal d’écart : recommandations hors profil, retards de reporting"],
+          get: "Une forme cible d’une page et un segment pilote, par exemple la clientèle patrimoniale." },
+        { t: "Automobile", why: "Nous vendons des véhicules, mais nos clients achètent de la disponibilité et des coûts maîtrisés.", need: "Passer du véhicule au service logiciel, puis à l’autonomie, sans casser ce qui marche.",
+          prompt: "« Notre stratégie : vendre nos véhicules électriques aux flottes d’entreprise hors d’Europe, automatiser les mises à jour logicielles à distance pour baisser nos coûts, et faire rouler nos premières navettes autonomes sur les sites logistiques de nos clients. Exprime-la comme une forme cible et montre où nos décisions s’en écartent. »",
+          does: ["Relie véhicules, logiciels, capteurs, sites et contrats dans un même graphe", "Encode les règles intouchables : aucune mise à jour sans tests de sécurité validés, l’autonomie progresse site par site", "Suit un signal d’écart : disponibilité des flottes, incidents après une mise à jour"],
+          get: "Une forme cible d’une page et une trajectoire par étapes vers l’autonomie." }
+      ] },
       { t: "Manager", why: "Mes équipes et nos agents vont vite, mais les règles arrivent par e-mail, des semaines trop tard.", need: "Des règles claires, appliquées dans les outils, et le droit de contester celles qui bloquent.",
         prompt: "« Installe une boucle minimale sur le domaine Sinistres : une vraie obligation, deux ou trois règles vérifiées automatiquement, un indicateur d’écart. »",
         does: ["Cartographie seulement ce que l’obligation touche", "Transforme 2 ou 3 règles en contrôles automatiques", "Trace chaque exception : intention, autorité, preuve, date d’expiration"], get: "Une boucle qui tourne dans votre dépôt, avec sa checklist de suivi." },
@@ -568,9 +592,11 @@
       pick: () => this.setState({ q: i, qAuto: false, qRun: this.state.qRun + 1 })
     }));
 
-    const ucCur = UC[s.uc];
+    const ucRole = UC[s.uc];
+    const ucCur = ucRole.sectors ? ucRole.sectors[s.sector] : ucRole;
     const uc = { why: ucCur.why, need: ucCur.need, prompt: ucCur.prompt, get: ucCur.get, does: ucCur.does.map((d) => ({ t: d })) };
     const ucTabs = UC.map((u, i) => ({ t: u.t, on: i === s.uc, pick: () => this.setState({ uc: i, ucRun: this.state.ucRun + 1 }) }));
+    const sectors = (ucRole.sectors || []).map((x, i) => ({ t: x.t, on: i === s.sector, pick: () => this.setState({ sector: i, ucRun: this.state.ucRun + 1 }) }));
     const copyCmd = () => {
       const done = () => { this.setState({ copied: true }); setTimeout(() => this.setState({ copied: false }), 2200); };
       try { navigator.clipboard.writeText("npx skills add yannickhuchard/enterprise-morphogenesis").then(done, () => {}); } catch (e) {}
@@ -608,7 +634,7 @@
 
     return {
       hooks, decks, slides, thumbs,
-      skSteps, uc, ucTabs, qs, qc, qPanelCls: "qpanel " + (s.qRun % 2 ? "b" : "a"), ucCls: "ucflow " + (s.ucRun % 2 ? "b" : "a"),
+      skSteps, uc, ucTabs, sectors, hasSectors: sectors.length > 0, qs, qc, qPanelCls: "qpanel " + (s.qRun % 2 ? "b" : "a"), ucCls: "ucflow " + (s.ucRun % 2 ? "b" : "a"),
       copyCmd, copyLabel: s.copied ? T.copied : T.copy,
       deckFile: deck.file, deckOther: other.file,
       deckOtherLabel: (en ? "Or the " : "Ou la version ") + other.title.toLowerCase(),

@@ -335,6 +335,12 @@
 <button type="button" class="tab" aria-pressed="{{u.on}}" onClick="{{u.pick}}">{{u.t}}</button>
 </sc-for>
 </div>
+<sc-if value="{{hasSectors}}" hint-placeholder-val="{{ true }}">
+<div class="sectors" role="group" aria-label="{{t.sectorGroup}}">
+<span class="label">{{t.sectorLabel}}</span>
+<sc-for list="{{sectors}}" as="sc" hint-placeholder-count="3"><button type="button" class="sector" aria-pressed="{{sc.on}}" onClick="{{sc.pick}}">{{sc.t}}</button></sc-for>
+</div>
+</sc-if>
 <div class="{{ucCls}}" aria-live="polite">
 <div class="uc"><span class="label">{{t.ucWhy}}</span><p class="why">{{uc.why}}</p></div>
 <div class="uc"><span class="label">{{t.ucNeed}}</span><p class="txt">{{uc.need}}</p></div>
