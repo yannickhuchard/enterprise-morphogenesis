@@ -4,6 +4,8 @@ White paper by **Yannick Huchard** · Version 1.0 · August 2026
 
 **Read the paper:** [yannickhuchard.github.io/enterprise-morphogenesis](https://yannickhuchard.github.io/enterprise-morphogenesis/)
 
+**Discover it in 3 minutes (FR / EN):** [yannickhuchard.github.io/enterprise-morphogenesis/landing/](https://yannickhuchard.github.io/enterprise-morphogenesis/landing/)
+
 **Author:** [yannickhuchard.com](https://yannickhuchard.com)
 
 Enterprise Architecture as the morphogenetic system of the enterprise: how strategy becomes a target form, and how that form is generated, scaled, and kept viable under continuous change.
@@ -23,6 +25,17 @@ The central proposition is that Enterprise Architecture is the morphogenetic sys
 | Word | [`Enterprise_Morphogenesis_White_Paper_Yannick_Huchard_v1_0_Publication.docx`](Enterprise_Morphogenesis_White_Paper_Yannick_Huchard_v1_0_Publication.docx) |
 
 There is no DOI yet. Do not invent one.
+
+## Presentations
+
+Two PowerPoint decks (17 slides each, in English) follow the paper chapter by chapter:
+
+| Deck | Audience | File |
+| --- | --- | --- |
+| Wide Adoption | Everyone in the organization | [`docs/presentations/Enterprise_Morphogenesis_Wide_Adoption_v1_0.pptx`](docs/presentations/Enterprise_Morphogenesis_Wide_Adoption_v1_0.pptx) |
+| Specialists | Architects and experts | [`docs/presentations/Enterprise_Morphogenesis_Specialists_v1_0.pptx`](docs/presentations/Enterprise_Morphogenesis_Specialists_v1_0.pptx) |
+
+On GitHub Pages they are served from `https://yannickhuchard.github.io/enterprise-morphogenesis/presentations/`.
 
 ## Cite this white paper
 
@@ -52,9 +65,13 @@ Paste `llms-full.txt` or `index.md` into a chat, a custom GPT, a Claude project,
 
 ## License
 
-Copyright (c) 2026 Yannick Huchard. This white paper, site, and agent skill are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). See [`LICENSE`](LICENSE).
+Copyright (c) 2026 Yannick Huchard. This white paper, site, presentations, and agent skill are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). See [`LICENSE`](LICENSE).
 
 ## Site
+
+Un premier brouillon pédagogique bilingue est disponible localement dans
+[`docs/discover/index.html`](docs/discover/index.html). Voir [`SITE.md`](SITE.md)
+pour la configuration GitHub Pages, la prévisualisation et les vérifications.
 
 The GitHub Pages site is generated from the publication Word file:
 

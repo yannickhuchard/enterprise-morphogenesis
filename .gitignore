@@ -18,7 +18,7 @@ Desktop.ini
 .branded_templates/
 .codex-docx-work/
 .cursor/
-presentations/
+/presentations/
 scripts/align_word_subtitle.py
 scripts/build_presentations.py
 *_updated.pptx

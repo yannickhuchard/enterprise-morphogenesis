@@ -1,0 +1,30 @@
+name: Check static site
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'scripts/check_site.py'
+      - '.github/workflows/check-pages.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'scripts/check_site.py'
+      - '.github/workflows/check-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check links, paper anchors and translations
+        run: python3 scripts/check_site.py
+      - name: Check browser JavaScript syntax
+        run: |
+          node --check docs/assets/js/discover.js
+          node --check docs/assets/js/landing.js

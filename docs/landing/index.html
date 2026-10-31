@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enterprise Morphogenesis — Quand l’IA accélère tout, qui garde votre entreprise sur sa trajectoire ?</title>
+  <meta name="description" content="Une approche pour garder l’entreprise cohérente pendant qu’elle change, y compris avec des agents IA. White paper de Yannick Huchard, en français et en anglais.">
+  <meta name="author" content="Yannick Huchard">
+  <meta name="theme-color" content="#fafbfc">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Quand l’IA accélère tout, qui garde votre entreprise sur sa trajectoire ?">
+  <meta property="og:description" content="Enterprise Morphogenesis : un système qui garde l’entreprise cohérente pendant qu’elle change. White paper, synthèse et présentations.">
+  <meta property="og:url" content="https://yannickhuchard.github.io/enterprise-morphogenesis/landing/">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://yannickhuchard.github.io/enterprise-morphogenesis/landing/">
+  <link rel="icon" type="image/svg+xml" href="../assets/images/yh-mark.svg">
+  <link rel="license" href="https://creativecommons.org/licenses/by/4.0/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Source+Sans+3:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/landing.css">
+  <script defer src="../assets/js/landing.js"></script>
+</head>
+<body>
+  <div id="landing"></div>
+  <noscript>
+    <main style="max-width: 640px; margin: 64px auto; padding: 0 16px; font-family: Georgia, serif; line-height: 1.6">
+      <p><strong>Enterprise Morphogenesis</strong> — Yannick Huchard</p>
+      <p>Quand l’IA accélère tout, qui garde votre entreprise sur sa trajectoire ? Cette page animée demande JavaScript.</p>
+      <p><a href="../">Lire le white paper</a> · <a href="../discover/">Version sans animation</a> · <a href="../presentations/Enterprise_Morphogenesis_Wide_Adoption_v1_0.pptx">Présentation pour tous</a> · <a href="../presentations/Enterprise_Morphogenesis_Specialists_v1_0.pptx">Présentation pour les spécialistes</a></p>
+    </main>
+  </noscript>
+  <template id="landing-template">
+<div class="em {{motionCls}}" lang="{{lang}}">
+
+<header class="nav">
+<div class="shell navin">
+<a class="brand" href="#top"><span class="mono-mark">YH</span><span>Enterprise<br>Morphogenesis</span></a>
+<nav class="navlinks" aria-label="{{t.navLabel}}">
+<a href="#probleme">{{t.navProblem}}</a>
+<a href="#idee">{{t.navIdea}}</a>
+<a href="#agents">{{t.navAgents}}</a>
+<a href="#vous">{{t.navYou}}</a>
+<a href="#presentations">{{t.navDecks}}</a>
+</nav>
+<div class="navright">
+<div class="lang" role="group" aria-label="Langue / Language">
+<button type="button" lang="fr" aria-pressed="{{isFr}}" aria-label="Français" onClick="{{setFr}}">FR</button>
+<button type="button" lang="en" aria-pressed="{{isEn}}" aria-label="English" onClick="{{setEn}}">EN</button>
+</div>
+<a class="btn navcta" href="https://yannickhuchard.github.io/enterprise-morphogenesis/" style="min-height: 44px; padding: 0 20px; font-size: 15px">{{t.navRead}}</a>
+</div>
+</div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+<div class="shell hero-grid" key="{{heroKey}}">
+<div>
+<p class="label up d1">{{t.heroKicker}}</p>
+<h1 class="h1"><span class="word d1">{{t.h1a}}</span> <span class="word d2">{{t.h1b}}</span> <span class="word d3">{{t.h1c}}</span> <span class="word d4">{{t.h1d}}</span></h1>
+<p class="lead up d4">{{t.heroA}}<b>{{t.heroB}}</b>{{t.heroC}}</p>
+<div class="ctas up d5">
+<a class="btn" href="#probleme">{{t.ctaStart}} <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6"></path></svg></a>
+<a class="btn btn-line" href="https://yannickhuchard.github.io/enterprise-morphogenesis/">{{t.navRead}}</a>
+</div>
+<div class="hooks up d5">
+<p class="label" style="margin-bottom: 4px">{{t.hooksLabel}}</p>
+<sc-for list="{{hooks}}" as="k" hint-placeholder-count="3"><a class="hook" href="{{k.href}}"><b>{{k.who}}</b><span>{{k.q}}</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></a></sc-for>
+</div>
+</div>
+
+<figure class="stage" style="margin: 0 auto">
+<div class="{{haloCls}}"></div>
+<div class="halo halo2"></div>
+<div class="orbit" aria-hidden="true">
+<div class="{{cubeCls}}"><span class="face f1"></span><span class="face f2"></span><span class="face f3"></span><span class="face f4"></span><span class="face f5"></span><span class="face f6"></span></div>
+<sc-for list="{{edges}}" as="e" hint-placeholder-count="12"><span class="{{e.cls}}" style="{{e.style}}"></span><span class="{{e.cls}}" style="{{e.style2}}"></span></sc-for>
+<sc-for list="{{dots}}" as="d" hint-placeholder-count="12"><span class="dotw" style="{{d.style}}"><span class="{{d.cls}}"></span></span></sc-for>
+</div>
+<figcaption class="caption" aria-live="polite">
+<span class="stepper" aria-hidden="true"><sc-for list="{{phaseBars}}" as="p" hint-placeholder-count="4"><span class="{{p.cls}}"></span></sc-for></span>
+<span class="capline">{{caption}}</span>
+</figcaption>
+</figure>
+</div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section" id="probleme">
+<div class="shell split">
+<div class="rv">
+<p class="label">{{t.probLabel}}</p>
+<h2 class="h2">{{t.probTitle}}</h2>
+<p class="lead">{{t.probLead}}</p>
+<ul class="facts">
+<sc-for list="{{facts}}" as="f" hint-placeholder-count="3">
+<li><b>{{f.n}}</b><span><strong>{{f.s}}</strong>{{f.r}}</span></li>
+</sc-for>
+</ul>
+</div>
+<div class="floorbox rv" role="img" aria-label="{{t.floorAria}}">
+<div class="floor">
+<div class="plan"></div>
+<span class="tile in" style="left: 60px; top: 60px"></span>
+<span class="tile in" style="left: 120px; top: 60px"></span>
+<span class="tile in" style="left: 60px; top: 120px"></span>
+<span class="tile pop" style="left: 180px; top: 0px"></span>
+<span class="tile pop k2" style="left: 240px; top: 120px"></span>
+<span class="tile pop k3" style="left: 0px; top: 180px"></span>
+<span class="tile pop k4" style="left: 180px; top: 240px"></span>
+<span class="tile pop k5" style="left: 0px; top: 0px"></span>
+<span class="tile pop k6" style="left: 240px; top: 240px"></span>
+<span class="tile pop k7" style="left: 120px; top: 240px"></span>
+</div>
+<span class="floortag" style="left: 4%; top: 8%"><i></i>{{t.tagPlan}}</span>
+<span class="floortag" style="right: 4%; bottom: 10%"><i class="dk"></i>{{t.tagReal}}</span>
+</div>
+</div>
+</section>
+
+<!-- IDEA -->
+<section class="section" id="idee" style="background: var(--wash)">
+<div class="shell split">
+<div class="stack3d rv" role="img" aria-label="{{t.stackAria}}">
+<div class="stackrot">
+<div class="{{plane1}}">
+<svg viewBox="0 0 300 300" aria-hidden="true"><path class="s" stroke-dasharray="7 7" d="M70,150 C70,85 120,58 165,62 C222,68 245,105 240,155 C234,210 195,240 150,238 C100,236 70,205 70,150 Z"></path><circle class="f" cx="140" cy="130" r="7"></circle><circle class="f" cx="185" cy="160" r="7"></circle><circle class="f" cx="128" cy="190" r="7"></circle><circle class="f" cx="198" cy="110" r="5"></circle></svg>
+</div>
+<div class="{{plane2}}">
+<svg viewBox="0 0 300 300" aria-hidden="true"><path class="s" d="M70 80 L150 150 L235 90 M150 150 L95 225 M150 150 L215 220 M70 80 L95 225 M235 90 L215 220"></path><circle class="f" cx="150" cy="150" r="12"></circle><circle class="f" cx="70" cy="80" r="8"></circle><circle class="f" cx="235" cy="90" r="8"></circle><circle class="f" cx="95" cy="225" r="8"></circle><circle class="f" cx="215" cy="220" r="8"></circle></svg>
+</div>
+<div class="{{plane3}}">
+<svg viewBox="0 0 300 300" aria-hidden="true"><path class="s" d="M62 92 l14 14 26-30 M132 92 l14 14 26-30 M202 92 l14 14 26-30 M62 162 l14 14 26-30 M132 162 l14 14 26-30 M202 162 l14 14 26-30 M62 232 l14 14 26-30 M132 232 l14 14 26-30"></path><rect class="f" x="204" y="214" width="38" height="38" rx="4"></rect></svg>
+</div>
+</div>
+</div>
+<div class="rv">
+<p class="label">{{t.ideaLabel}}</p>
+<h2 class="h2">{{t.ideaTitle}}</h2>
+<p class="lead">{{t.ideaLead}}</p>
+<div class="layers">
+<sc-for list="{{layers}}" as="l" hint-placeholder-count="3">
+<button type="button" class="{{l.cls}}" aria-pressed="{{l.on}}" onClick="{{l.pick}}"><span class="n">{{l.n}}</span><span class="t">{{l.t}}</span><span class="d">{{l.d}}</span></button>
+</sc-for>
+</div>
+</div>
+</div>
+</section>
+
+<!-- LOOP -->
+<section class="section" id="boucle">
+<div class="shell">
+<div class="split">
+<div class="rv">
+<p class="label">{{t.loopLabel}}</p>
+<h2 class="h2">{{t.loopTitle}}</h2>
+<p class="lead">{{t.loopA}}<b>{{t.loopB}}</b>{{t.loopC}}</p>
+</div>
+<div class="rv">
+<div class="ringbox" role="img" aria-label="{{t.ringAria}}">
+<div class="ringplane">
+<svg class="ghost" viewBox="0 0 380 380" aria-hidden="true">
+<polygon class="{{ghostCls}}" points="190,95 272,142 272,238 190,285 108,238 108,142"></polygon>
+<circle class="{{ghostCls}}" cx="190" cy="95" r="22"></circle><circle class="{{ghostCls}}" cx="272" cy="142" r="22"></circle><circle class="{{ghostCls}}" cx="272" cy="238" r="22"></circle>
+<circle class="{{ghostCls}}" cx="190" cy="285" r="22"></circle><circle class="{{ghostCls}}" cx="108" cy="238" r="22"></circle><circle class="{{ghostCls}}" cx="108" cy="142" r="22"></circle>
+</svg>
+<sc-for list="{{links}}" as="k" hint-placeholder-count="12"><span class="{{k.cls}}" style="{{k.style}}"><i class="{{k.pcls}}" style="{{k.pstyle}}"></i></span></sc-for>
+<sc-for list="{{nodes}}" as="n" hint-placeholder-count="12"><span class="{{n.cls}}" style="{{n.pos}}"><span class="pad"></span><span class="stand"><span class="ball"></span><span class="name">{{n.name}}</span></span></span></sc-for>
+<span class="station" style="left: 50%; top: 0%"></span>
+<span class="station" style="left: 100%; top: 50%"></span>
+<span class="station" style="left: 50%; top: 100%"></span>
+<span class="station" style="left: 0%; top: 50%"></span>
+<div class="ringrot"><span class="runner"></span></div>
+</div>
+<p class="{{phaseTagCls}}" aria-live="polite">{{phaseTag}}</p>
+</div>
+<div class="syslegend"><sc-for list="{{legend}}" as="g" hint-placeholder-count="7"><span class="{{g.cls}}"><i></i>{{g.name}}</span></sc-for></div>
+</div>
+</div>
+<div class="steps">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="4">
+<div class="{{s.cls}}"><b>{{s.n}}</b><h3>{{s.t}}</h3><p>{{s.d}}</p></div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- AGENTS -->
+<section class="section ink" id="agents">
+<div class="shell">
+<p class="label rv">{{t.agLabel}}</p>
+<h2 class="h2 rv" style="max-width: 20ch">{{t.agTitle}}</h2>
+<p class="lead rv">{{t.agLead}}</p>
+<div class="ex" role="group" aria-label="{{t.exGroup}}">
+<sc-for list="{{examples}}" as="e" hint-placeholder-count="4">
+<button type="button" class="chip" aria-pressed="{{e.on}}" onClick="{{e.pick}}"><span class="cn">{{e.n}}</span>{{e.t}}</button>
+</sc-for>
+</div>
+<div class="gwrap" aria-hidden="true">
+<div class="gtilt">
+<svg class="gsvg" viewBox="0 0 600 330">
+<path class="garc-in" d="M70 300 A230 230 0 0 1 530 300"></path>
+<path class="gtick" d="{{tickPath}}"></path>
+<path class="{{z1}}" d="M60.15 291.63 A240 240 0 0 1 172.82 96.48"></path>
+<path class="{{z2}}" d="M187.32 88.10 A240 240 0 0 1 412.68 88.10"></path>
+<path class="{{z3}}" d="M427.18 96.48 A240 240 0 0 1 539.85 291.63"></path>
+<g class="{{mk0}}"><circle cx="543.6" cy="166.1" r="15"></circle><text x="543.6" y="166.1">1</text></g>
+<g class="{{mk1}}"><circle cx="300" cy="22" r="15"></circle><text x="300" y="22">2</text></g>
+<g class="{{mk2}}"><circle cx="65.3" cy="151" r="15"></circle><text x="65.3" y="151">3</text></g>
+<g class="{{mk3}}"><circle cx="28.7" cy="239.4" r="15"></circle><text x="28.7" y="239.4">4</text></g>
+<text class="glab" x="300" y="232">{{t.gaugeQ}}</text>
+<g class="gneedle" style="{{needleStyle}}">
+<path class="needle" d="M294 300 L300 74 L306 300 Z"></path>
+<circle class="{{tipCls}}" cx="300" cy="78" r="10"></circle>
+</g>
+<circle class="hub" cx="300" cy="300" r="20"></circle>
+<circle class="hubdot" cx="300" cy="300" r="6"></circle>
+</svg>
+</div>
+<div class="gfloor"></div>
+<div class="zones"><span class="{{zl0}}">{{t.zone0}}</span><span class="{{zl1}}">{{t.zone1}}</span><span class="{{zl2}}">{{t.zone2}}</span></div>
+</div>
+<div class="answer" aria-live="polite">
+<div class="serif">{{exVerdict}}</div>
+<p>{{exWhy}}</p>
+</div>
+<div class="rule">
+<sc-for list="{{rules}}" as="r" hint-placeholder-count="4"><div><b>{{r.b}}</b>{{r.t}}</div></sc-for>
+</div>
+</div>
+</section>
+
+<!-- YOU -->
+<section class="section" id="vous">
+<div class="shell">
+<p class="label rv">{{t.youLabel}}</p>
+<h2 class="h2 rv">{{t.youTitle}}</h2>
+<div class="tabs" role="group" aria-label="{{t.rolesGroup}}">
+<sc-for list="{{roles}}" as="r" hint-placeholder-count="4">
+<button type="button" class="tab" aria-pressed="{{r.on}}" onClick="{{r.pick}}">{{r.t}}</button>
+</sc-for>
+</div>
+<div class="you" key="{{roleKey}}">
+<div class="l">
+<p class="label">{{t.changeLabel}}</p>
+<p class="serif">{{roleChange}}</p>
+</div>
+<div class="r">
+<p class="label">{{t.stepLabel}}</p>
+<p>{{roleStep}}</p>
+<a class="btn btn-line" href="#commencer" style="color: #fff; box-shadow: inset 0 0 0 1.5px #fff; align-self: flex-start">{{t.startBtn}} <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14m-6-6 6 6 6-6"></path></svg></a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- START -->
+<section class="section" id="commencer" style="background: var(--wash)">
+<div class="shell">
+<p class="label rv">{{t.stLabel}}</p>
+<h2 class="h2 rv">{{t.stTitle}}</h2>
+<p class="lead rv">{{t.stLead}}</p>
+<div class="loopsteps">
+<sc-for list="{{ls}}" as="x" hint-placeholder-count="4">
+<div class="ls rv"><span class="n">{{x.n}}</span><h3>{{x.h}}</h3><p>{{x.p}}</p></div>
+</sc-for>
+</div>
+<p class="closing rv"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15" fill="none" stroke="#171C21" stroke-width="1.5" stroke-dasharray="4 4"></circle><circle cx="18" cy="3" r="3" fill="#171C21"></circle></svg>{{t.closing}}</p>
+</div>
+</section>
+
+<!-- DECKS -->
+<section class="section" id="presentations">
+<div class="shell">
+<p class="label rv">{{t.deckLabel}}</p>
+<h2 class="h2 rv">{{t.deckTitle}}</h2>
+<p class="lead rv">{{t.deckLead}}</p>
+<div class="decks">
+<div class="rv">
+<div class="deckpick" role="group" aria-label="{{t.deckGroup}}">
+<sc-for list="{{decks}}" as="d" hint-placeholder-count="2">
+<button type="button" class="dpick" aria-pressed="{{d.on}}" onClick="{{d.pick}}"><span class="label">{{d.title}}</span><span class="dname serif">{{d.name}}</span><span class="dsub">{{d.sub}}</span><span class="dmeta">{{d.meta}}</span></button>
+</sc-for>
+</div>
+<div class="deckdl">
+<a class="btn" href="{{deckFile}}" download="">{{t.deckDownload}} <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12m-5-5 5 5 5-5M5 20h14"></path></svg></a>
+<a class="btn btn-line" href="{{deckOther}}" download="">{{deckOtherLabel}}</a>
+</div>
+</div>
+<div class="rv">
+<div class="deckstage">
+<div class="deckrot">
+<sc-for list="{{slides}}" as="sl" hint-placeholder-count="8"><div class="slide" style="{{sl.style}}"><img src="{{sl.src}}" alt="{{sl.alt}}" loading="lazy"></div></sc-for>
+</div>
+</div>
+<div class="deckctrl">
+<button type="button" class="round" aria-label="{{t.deckPrev}}" onClick="{{prevSlide}}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"></path></svg></button>
+<button type="button" class="round" aria-label="{{t.deckNext}}" onClick="{{nextSlide}}"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"></path></svg></button>
+<span class="mono" style="font-size: 13px; color: var(--muted)">{{slideCounter}}</span>
+</div>
+<div class="thumbs">
+<sc-for list="{{thumbs}}" as="th" hint-placeholder-count="8"><button type="button" class="thumb" aria-pressed="{{th.on}}" aria-label="{{th.alt}}" onClick="{{th.pick}}"><img src="{{th.src}}" alt="" loading="lazy"></button></sc-for>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- END -->
+<section class="section ink">
+<div class="shell">
+<p class="label rv">{{t.endLabel}}</p>
+<p class="quote rv">{{t.quoteA}} <em>{{t.quoteB}}</em></p>
+<div class="links">
+<a class="lk" href="https://yannickhuchard.github.io/enterprise-morphogenesis/">{{t.navRead}} <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></a>
+<a class="lk" href="https://yannickhuchard.github.io/enterprise-morphogenesis/#executive-summary">{{t.lkSum}} <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></a>
+<a class="lk" href="https://yannickhuchard.github.io/enterprise-morphogenesis/Enterprise_Morphogenesis_v1_0.docx">{{t.lkDoc}} <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v12m-5-5 5 5 5-5M5 20h14"></path></svg></a>
+</div>
+<div class="foot">
+<span>{{t.foot}}</span>
+<a href="https://yannickhuchard.com">yannickhuchard.com</a>
+</div>
+</div>
+</section>
+
+</div>
+  </template>
+</body>
+</html>
